@@ -4,9 +4,114 @@
 #include <cassert>
 
 template<typename T>
-class TPQueue {
-  // Сюда помещается описание структуры "Очередь с приоритетами"
+class TPQueue
+{
+private:
+    T *arr;          // массив с данными
+    int size;        // максимальное количество элементов в очереди (размер массива)
+    int begin,       // начало очереди
+        end;         // конец очереди
+    int count;       // счетчик элементов
+public:
+    TQueue(int =100);          // конструктор по умолчанию
+    ~TQueue();                 // деструктор
+ 
+    void push(const T &); // добавить элемент в очередь
+    T pop();              // удалить элемент из очереди
+    T get() const;        // прочитать первый элемент
+    bool isEmpty() const;      // пустая ли очередь?
+    bool isFull() const;       // заполнен ли массив?
 };
+
+template<typename T>
+TPQueue<T>::TPQueue(int sizeQueue) :
+  size(sizeQueue),
+  begin(0), end(0), count(0)
+{
+  arr = new T[size];
+}
+
+
+template<typename T>
+TPQueue<T>::~TPQueue()
+{
+  delete[] arr;
+}
+
+
+
+template<typename T>
+void TPQueue<T>::push(const T& item)
+{
+
+  assert(count < size);
+  int index = -1;
+  int i = begin - 1;
+  do {
+    i++;
+    if (i == size)
+      i = 0;
+    if (item.prior > arr[i]) {
+      index = i;
+      break;
+    }
+  } while (i < end);
+  if (end + 1 == size) {
+    end = 0;
+    count++;
+  } else {
+    end++;
+    count++;
+  }
+  if (index != -1) {
+    while (i == end) {
+      if (i == size - 1)
+        swap(arr[i], arr[0]);
+      else
+        swap(arr[i].arr[i + 1]);
+    }
+    arr[index] = item;
+  } else {
+    arr[end] = item;
+  }
+}
+
+
+template<typename T>
+T TPQueue<T>::pop()
+{
+  assert(count > 0);
+
+  T item = arr[begin];
+  count--;
+
+  if (begin + 1 == size) {
+    begin = 0;
+  } else {
+    begin++;
+  }
+
+  return item;
+}
+
+template<typename T>
+T TPQueue<T>::get() const
+{
+  assert(count > 0);
+  return arr[begin];
+}
+
+template<typename T>
+bool TPQueue<T>::isEmpty() const
+{
+  return count == 0;
+}
+
+template<typename T>
+bool TPQueue<T>::isFull() const
+{
+  return count == size - 1;
+}
 
 struct SYM {
   char ch;
