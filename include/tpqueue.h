@@ -6,24 +6,17 @@
 template<typename T>
 class TPQueue
 {
+    
 private:
+    
     T *arr;          // массив с данными
     int size;        // максимальное количество элементов в очереди (размер массива)
     int begin,       // начало очереди
         end;         // конец очереди
-    int count;       // счетчик элементов
+    int count;
+// счетчик элементов
 public:
-    TQueue(int =100);          // конструктор по умолчанию
-    ~TQueue();                 // деструктор
- 
-    void push(const T &); // добавить элемент в очередь
-    T pop();              // удалить элемент из очереди
-    T get() const;        // прочитать первый элемент
-    bool isEmpty() const;      // пустая ли очередь?
-    bool isFull() const;       // заполнен ли массив?
-};
-
-template<typename T>
+    
 TPQueue<T>::TPQueue(int sizeQueue) :
   size(sizeQueue),
   begin(0), end(0), count(0)
@@ -32,16 +25,15 @@ TPQueue<T>::TPQueue(int sizeQueue) :
 }
 
 
-template<typename T>
-TPQueue<T>::~TPQueue()
+~TPQueue()
 {
   delete[] arr;
 }
 
 
 
-template<typename T>
-void TPQueue<T>::push(const T& item)
+
+void push(const T& item)
 {
 
   assert(count < size);
@@ -77,8 +69,8 @@ void TPQueue<T>::push(const T& item)
 }
 
 
-template<typename T>
-T TPQueue<T>::pop()
+
+T pop()
 {
   assert(count > 0);
 
@@ -94,28 +86,32 @@ T TPQueue<T>::pop()
   return item;
 }
 
-template<typename T>
-T TPQueue<T>::get() const
+T get() const
 {
   assert(count > 0);
   return arr[begin];
 }
 
-template<typename T>
-bool TPQueue<T>::isEmpty() const
+
+bool isEmpty() const
 {
   return count == 0;
 }
 
-template<typename T>
-bool TPQueue<T>::isFull() const
+
+bool isFull() const
 {
   return count == size - 1;
 }
+
+
+
+};
 
 struct SYM {
   char ch;
   int  prior;
 };
+
 
 #endif // INCLUDE_TPQUEUE_H_
