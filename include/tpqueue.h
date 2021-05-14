@@ -4,6 +4,7 @@
 #include <cassert>
 
 template<typename T>
+
 class TPQueue
 {
     
@@ -17,7 +18,7 @@ private:
 // счетчик элементов
 public:
     
-TPQueue<T>::TPQueue(int sizeQueue) :
+TPQueue(int sizeQueue) :
   size(sizeQueue),
   begin(0), end(0), count(0)
 {
