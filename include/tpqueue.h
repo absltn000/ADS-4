@@ -4,15 +4,14 @@
 #include <cassert>
 
 template<typename T>
-class TPQueue
-{
-private:
+class TPQueue {
+ private:
   T* arr;
   int size;
   int begin,
     end;
   int count;
-public:
+ public:
   TPQueue():size(100), begin(0), end(0), count(0) {
     arr = new T[size];
   }
@@ -21,7 +20,7 @@ public:
     delete[] arr;
   }
 
-  void push(const T &item) { 
+  void push(const T &item) {
     assert(count < size);
     int index = -1;
     int i = begin;
@@ -37,8 +36,7 @@ public:
     if (index != -1) {
       i = end;
       while (i != index) {
-        if (i == 0)
-        {
+        if (i == 0) {
           T x = arr[i];
           arr[i] = arr[size - 1];
           arr[size - 1] = x;
@@ -80,7 +78,7 @@ public:
   T get() const {
     assert(count > 0);
     return arr[begin];
-  }   
+  }
 
   bool isEmpty() const {
     return count == 0;
